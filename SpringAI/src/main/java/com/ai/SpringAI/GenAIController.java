@@ -17,6 +17,7 @@ public class GenAIController {
 
     private final ChatService chatService;
     private final ImageService imageService;
+    private final RecipeService recipeService;
 
     @GetMapping("ask-ai")
     public String getResponse(@RequestParam String prompt){
@@ -43,6 +44,13 @@ public class GenAIController {
                 .toList();
 
         return imageUrls;
+    }
+
+    @GetMapping("recipe-creator")
+    public String recipeCreator(@RequestParam String ingredients,
+                                @RequestParam(defaultValue = "any") String cuisine,
+                                @RequestParam(defaultValue = "") String dietaryRestriction) {
+        return recipeService.createRecipe(ingredients, cuisine, dietaryRestriction);
     }
 
 }
